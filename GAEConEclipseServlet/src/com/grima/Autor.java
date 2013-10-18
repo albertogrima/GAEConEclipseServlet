@@ -1,51 +1,104 @@
 package com.grima;
 
-import javax.jdo.annotations.*;
-import java.util.List;
+import javax.jdo.annotations.Embedded;
+import javax.jdo.annotations.EmbeddedOnly;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
-@PersistenceCapable (identityType=IdentityType.APPLICATION)
+@PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class Autor {
-	//Clave primaria clase Autor+
-	@PrimaryKey
-	//Se pone la primaryKey al DNI del Autor del tutorial
-	private String dni;
-	@Persistent(mappedBy = "autor")
-	private List<Autor> autorSets;
-	@Persistent
-	private String nombreAutor;
-	@Persistent 
-	private String apellidosAutor;
 	
-	//Constructor de la clase
-	public Autor(String dni, String nombreAutor, String apellidosAutor){
-		this.dni = dni;
-		this.nombreAutor = nombreAutor;
-		this.apellidosAutor = apellidosAutor;
-		}
+	private static final int ENTITIES_PER_PAGE = 3;
 	
-	//Metodos get y set
-	public String getDni(){
-		return dni;
-		}
+	@PersistenceCapable
+	@EmbeddedOnly
+	public static class infoPersonal {
+	    public String apellidos;
+	    public String nombre;
+	    
+	    public infoPersonal(String nombre, String apellidos) {
+	      this.apellidos = apellidos;
+	      this.nombre = nombre;
+	    }
+	  }
 	
-	public void setDni(String dni){
-		this.dni = dni;
+	@PersistenceCapable
+	@EmbeddedOnly
+	public static class infoDireccion {
+		public String tipoCalle;
+		public String calle;
+		public String numeroCasa;
+		public String codigoPostal;
+		public String provincia;
+		public String poblacion;
+				
+		public infoDireccion(String tipoCalle, String calle, String numeroCasa, String codigoPostal, String provincia, String poblacion) {
+			this.tipoCalle = tipoCalle;
+			this.calle = calle;
+			this.numeroCasa = numeroCasa;
+			this.codigoPostal = codigoPostal;
+			this.provincia = provincia;
+			this.poblacion = poblacion;
 		}
+		
+	}
 	
-	public String getNombreAutor(){
-		return nombreAutor;
+	@PersistenceCapable
+	@EmbeddedOnly
+	public static class infoContacto {
+		public String numeroTelefono;
+		
+		public infoContacto(String numeroTelefono){
+			this.numeroTelefono = numeroTelefono;
 		}
-	
-	public void setNombreAutor(String nombreAutor){
-		this.nombreAutor = nombreAutor;
-		}
-	
-	public String getApellidosAutor(){
-		return apellidosAutor;
-		}
-	
-	public void setApellidosAutor(String apellidosAutor){
-		this.apellidosAutor = apellidosAutor;
-		}
+	}
 
+	@PrimaryKey
+	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
+	private Long id;
+	
+	@Persistent
+	@Embedded
+	private infoPersonal infoPersonal;
+	
+	@Persistent
+	@Embedded
+	private infoDireccion infoDireccion;
+	
+	@Persistent
+	@Embedded
+	private infoContacto infoContacto;
+	
+	public infoPersonal getinfoPersonal() {
+	    return infoPersonal;
+	  }
+
+	public void setPersonalInfo(infoPersonal infoPersonal) {
+	    this.infoPersonal = infoPersonal;
+	  }
+	
+	
+	public infoDireccion getinfoDireccion() {
+	    return infoDireccion;
+	  }
+
+	public void setInfoDireccion(infoDireccion getinfoDireccion) {
+	    this.infoDireccion = getinfoDireccion;
+	  }
+		  
+	public infoContacto getinfoContacto() {
+	    return infoContacto;
+	  }
+
+	public void setInfoContacto(infoContacto infoContacto) {
+	    this.infoContacto = infoContacto;
+	  }
+	
+	public Long getId() {
+	    return id;
+	  }
+	
 }

@@ -10,6 +10,7 @@ import javax.jdo.Query;
 public class TutorialesUtil {
 	//Cuantos datos mistrara en la consulta
 	private final static int FETCH_MAX_RESULTS = 10;
+	
 	//Metodo para insertar un dato
 	public static void insertar(Autor autorName, String tutorialName){
 		//LLamamos a la clase que tendra la persistencia
@@ -41,6 +42,15 @@ public class TutorialesUtil {
 		query.setRange(0, FETCH_MAX_RESULTS);
 		return (List<Tutorial>) query.execute();
 	}
+	
+	//Para los datos de los autores
+		@SuppressWarnings("unchecked")
+		public static List<Autor> autores(){
+		final PersistenceManager pm = PMF.get().getPersistenceManager();
+		final Query query = pm.newQuery(Autor.class);
+		query.setRange(0, FETCH_MAX_RESULTS);
+		return (List<Autor>) query.execute();
+		}
 	//Para modificar alg�n tutorial
 	//public static void modificarTitulo(Long id, String autorNameNuevo, String tutorialNameNuevo,Date fechaNuevo){
 		//Llamamos a la clase que tendra la persistencia

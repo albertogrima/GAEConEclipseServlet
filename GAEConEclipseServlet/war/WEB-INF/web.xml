@@ -5,12 +5,12 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
-		<servlet-name>tutorial</servlet-name>
-		<servlet-class>com.grima.GAEConEclipseServletServlet</servlet-class>
+		<servlet-name>autor</servlet-name>
+		<servlet-class>com.grima.AutorServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-     <servlet-name>tutorial</servlet-name>
-     <url-pattern>/tutorial</url-pattern>
+     <servlet-name>autor</servlet-name>
+     <url-pattern>/autor</url-pattern>
   </servlet-mapping>
     <session-config>
         <session-timeout>

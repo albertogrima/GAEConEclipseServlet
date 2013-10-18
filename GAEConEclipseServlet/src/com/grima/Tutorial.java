@@ -13,23 +13,24 @@ public class Tutorial{
 	 private Long id;
 	 //Creamos las variables persistence para insertar los datos
 	 @Persistent
-	 private Autor autor;
+	 private Autor dni;
+	 
 	 @Persistent 
 	 private String tutorial;
 	 @Persistent 
 	 private Date fecha;
 	 //Constructor de la clase
-	 public Tutorial(Autor autor, String tutorial){
-		 this.autor = autor;
+	 public Tutorial(Autor dni, String tutorial){
+		 this.dni = dni;
 		 this.tutorial = tutorial;
 		 this.fecha = new Date();
 	 }
 	 //Metodos get y set
 	 public Autor getAutor(){
-		 return autor;
+		 return dni;
 	 }
-	 public void setAutor(Autor autor){
-		 this.autor = autor;
+	 public void setAutor(Autor dni){
+		 this.dni = dni;
      }
 	 public String getTutorial(){
 		 return tutorial;

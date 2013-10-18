@@ -8,6 +8,7 @@
     </head>
     <body>
         <h1>Menu de Opciones</h1>
+        <a href="autor.jsp">Address Book Demo</a><br>
         <a href="/tutorialCreate.jsp">Crear Tutorial</a><br>
         <a href="/tutorial?action=showTodos">Listar Tutorial</a><br>
         <a href="/tutorialPorAutor.jsp">Busqueda tutoriales por autor</a><br>
