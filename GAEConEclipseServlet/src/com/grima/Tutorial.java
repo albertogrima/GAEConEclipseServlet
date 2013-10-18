@@ -1,7 +1,7 @@
 package com.grima;
 
 import java.util.Date;
-
+import java.util.List;
 import javax.jdo.annotations.*;
 
 @PersistenceCapable (identityType=IdentityType.APPLICATION)
@@ -12,23 +12,23 @@ public class Tutorial{
 	 @Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
 	 private Long id;
 	 //Creamos las variables persistence para insertar los datos
-	 @Persistent 
-	 private String autor;
+	 @Persistent
+	 private Autor autor;
 	 @Persistent 
 	 private String tutorial;
 	 @Persistent 
 	 private Date fecha;
 	 //Constructor de la clase
-	 public Tutorial(String autor, String tutorial){
+	 public Tutorial(Autor autor, String tutorial){
 		 this.autor = autor;
 		 this.tutorial = tutorial;
 		 this.fecha = new Date();
 	 }
 	 //Metodos get y set
-	 public String getAutor(){
+	 public Autor getAutor(){
 		 return autor;
 	 }
-	 public void setAutor(String autor){
+	 public void setAutor(Autor autor){
 		 this.autor = autor;
      }
 	 public String getTutorial(){
@@ -49,4 +49,7 @@ public class Tutorial{
 	 public void setId(Long id){
 		 this.id = id;
 	 }
+	 
+	 
+	 
 }

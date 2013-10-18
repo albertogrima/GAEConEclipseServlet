@@ -28,7 +28,7 @@ public class GAEConEclipseServletServlet extends HttpServlet {
 			{
 				String autor = request.getParameter("autor");
 				String tutorial = request.getParameter("tutorial");
-				TutorialesUtil.insertar(autor, tutorial);
+				TutorialesUtil.insertar(autorName, tutorialName);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");	
 				rd.forward(request, response);
 			}

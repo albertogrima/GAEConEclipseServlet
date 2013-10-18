@@ -1,7 +1,7 @@
 package com.grima;
-import java.util.Date;
 
 import javax.jdo.annotations.*;
+import java.util.List;
 
 @PersistenceCapable (identityType=IdentityType.APPLICATION)
 public class Autor {
@@ -9,6 +9,8 @@ public class Autor {
 	@PrimaryKey
 	//Se pone la primaryKey al DNI del Autor del tutorial
 	private String dni;
+	@Persistent(mappedBy = "autor")
+	private List<Autor> autorSets;
 	@Persistent
 	private String nombreAutor;
 	@Persistent 
