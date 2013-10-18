@@ -15,7 +15,7 @@ public class Autor {
 	private String apellidosAutor;
 	
 	//Constructor de la clase
-	public Autor(String autor, String tutorial){
+	public Autor(String dni, String nombreAutor, String apellidosAutor){
 		this.dni = dni;
 		this.nombreAutor = nombreAutor;
 		this.apellidosAutor = apellidosAutor;
@@ -36,7 +36,14 @@ public class Autor {
 	
 	public void setNombreAutor(String nombreAutor){
 		this.nombreAutor = nombreAutor;
-	}
+		}
 	
+	public String getApellidosAutor(){
+		return apellidosAutor;
+		}
+	
+	public void setApellidosAutor(String apellidosAutor){
+		this.apellidosAutor = apellidosAutor;
+		}
 
 }
