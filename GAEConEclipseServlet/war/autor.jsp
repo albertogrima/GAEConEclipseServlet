@@ -13,13 +13,17 @@
 <body>
 
 <%
+//Siguiente pagina mediante keyID
 Long keyOffsetId = null;
 String keyOffset = request.getParameter("page");
 if (keyOffset != null) keyOffsetId = Long.decode(keyOffset);
 if (keyOffset == null) keyOffset = "";
+//Siguiente pagina mediante index
 String indexString = request.getParameter("startIndex");
 if (indexString == null) indexString = "0";
 int indexOffset = Integer.parseInt(indexString);
+
+//Busqueda
 String ultimoNombreSelecionado = request.getParameter("ultimoNombreSelecionado");
 if (ultimoNombreSelecionado == null) ultimoNombreSelecionado = "";
 String estadoSelecionado = request.getParameter("estadoSelecionado");
@@ -28,10 +32,10 @@ if (estadoSelecionado == null) estadoSelecionado = "";
 
 <form action="/autor.jsp" method="get">
   <p>
-  <p>Select entries with 
-  Last name: <input name="ultimoNombreSelecionado" value="<%= ultimoNombreSelecionado %>">
-  and/or State: <input name="estadoSelecionado" value="<%= estadoSelecionado %>">
-  <input type="submit" value="Search">
+  <p>Buscar por
+  Apellidos: <input name="ultimoNombreSelecionado" value="<%= ultimoNombreSelecionado %>">
+  y/o pobalcion <input name="estadoSelecionado" value="<%= estadoSelecionado %>">
+  <input type="submit" value="buscar">
   </p>
 </form>
 
@@ -73,8 +77,8 @@ There are no entries.
 
 <h2>entrada nueva</h2>
 <form action="/autor" method="post">
-  <p>First name: <input name="nombre"> Last name: <input name="nombre"></p>
-  <p>City: <input name="poblacion">, State: <input name="estado"></p>
+  <p>First name: <input name="nombre"> Last name: <input name="apellidos"></p>
+  <p>City: <input name="poblacion"> State: <input name="estado"></p>
   <p>Phone number: <input name="numeroTelefono"></p>
   <p><input type="submit" value="Submit"></p>
 </form>

@@ -32,40 +32,51 @@ public class AutorUtils {
 	}
 	
 	
-	//Para sacar la pagina en la que se esta
-	public static List<Autor> getPage(
-	        Long keyOffset, int indexOffset, String lastName, String state) {
+	//Para sacar la pagina en la que se esta y/o realizar busqueda
+	@SuppressWarnings("unchecked")
+	public static List<Autor> getPage(Long keyOffset, int indexOffset, String apellidos, String poblacion) {
 	    PersistenceManager pm = PMF.get().getPersistenceManager();
 	    
 	    Query query = pm.newQuery(Autor.class);
 	    query.declareParameters(
-	        "Long keyOffset, String lastNameSelected, String stateSelected");
+	    		"Long keyOffset, String ultimoNombreSelecionado, String estadoSelecionado");
 	    StringBuilder filter = new StringBuilder();
 	    String combine = "";
-	    if (keyOffset != null && !keyOffset.equals("")) {
-	      if (filter.length() != 0) {
-	        filter.append(" && ");
-	      }
-	      filter.append("id >= keyOffset");
-	    }
-	    if (lastName != null && !lastName.equals("")) {
-	      if (filter.length() != 0) {
-	        filter.append(" && ");
-	      }
-	      filter.append("personalInfo.lastName == lastNameSelected");
-	    }
-	    if (state != null && !state.equals("")) {
-	      if (filter.length() != 0) {
-	        filter.append(" && ");
-	      }
-	      filter.append("addressInfo.state == stateSelected");
-	    }
+	    
+	    if (keyOffset != null && !keyOffset.equals("")) 
+	    	{
+	    	if (filter.length() != 0) 
+	    		{
+	    		filter.append(" && ");
+	    		}
+	    	filter.append("id >= keyOffset");
+	    	}
+	    
+	    if (apellidos != null && !apellidos.equals("")) 
+	    	{
+	    	if (filter.length() != 0) 
+	      		{
+	    		filter.append(" && ");
+	      		}
+	      	filter.append("infoPersonal.apellidos == ultimoNombreSelecionado");
+	    	}
+	    
+	    if (poblacion != null && !poblacion.equals("")) 
+	    	{
+	    	if (filter.length() != 0) 
+	    		{
+	    		filter.append(" && ");
+	    		}
+	    	filter.append("infoDireccion.poblacion == estadoSelecionado");
+	    	}
+	    
 	    System.out.println("Filter is: " + filter.toString());
-	    if (filter.length() > 0) {
-	      query.setFilter(filter.toString());
-	    }
+	    if (filter.length() > 0) 
+	    	{
+	    	query.setFilter(filter.toString());
+	    	}
 	    query.setRange(indexOffset, indexOffset + ENTITIES_PER_PAGE + 1);
-	    return (List<Autor>) query.execute(keyOffset, lastName, state);
+	    return (List<Autor>) query.execute(keyOffset, apellidos, poblacion);
 	  }
 	
 }
