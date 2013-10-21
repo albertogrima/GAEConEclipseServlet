@@ -55,8 +55,13 @@ There are no entries.
 		    %>
 		    <div>
 		      <div><%= entrada.getinfoPersonal().nombre %> <%= entrada.getinfoPersonal().apellidos %></div>
-		      <div><%= entrada.getinfoDireccion().poblacion %>, <%= entrada.getinfoDireccion().provincia %></div>
-		      <div><%= entrada.getContactos().get(0).getinfoContacto().numeroTelefono%></div>
+		      <div><%= entrada.getinfoDireccion().poblacion %> <%= entrada.getinfoDireccion().provincia %></div>
+		      <%if (entrada.getContactos().isEmpty() != true){ %>
+		      Sin numero de telefono.
+		      <%} else {
+		    	  for (int x= 0; x = entrada.getContactos().size(); x=x+1) { %>
+		    	  <div><%= entrada.getContactos().get(x).getinfoContacto().numeroTelefono%></div> 
+		      }
 		    </div>
 		    <br>
 		    <%
