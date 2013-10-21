@@ -13,5 +13,9 @@
         <a href="/tutorial?action=showTodos">Listar Tutorial</a><br>
         <a href="/tutorialPorAutor.jsp">Busqueda tutoriales por autor</a><br>
         <a href="/tutorialModificar.jsp">modificar Tutorial</a><br>
+        <a href="/unoVarios.jsp">unoVarios</a><br>
+        <a href="/sacarDatosUnoVarios.jsp">sacar datos unoVarios</a><br>
+        
+        
     </body>
 </html>

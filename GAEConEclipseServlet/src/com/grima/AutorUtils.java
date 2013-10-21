@@ -17,12 +17,27 @@ public class AutorUtils {
 			String numeroTelefono) {
 		Autor entrada = new Autor();
 		entrada.setPersonalInfo(new Autor.infoPersonal(nombre, apellidos));
-		entrada.setInfoContacto(new Autor.infoContacto(numeroTelefono));
 		entrada.setInfoDireccion(new Autor.infoDireccion(tipoCalle, calle, numeroCasa,
 				codigoPostal, provincia, poblacion));
 		
+		ContactosAutor contactosAutor = new ContactosAutor();
+		contactosAutor.setInfoContacto(new ContactosAutor.infoContacto("124123123"));
+		entrada.getContactos().add(contactosAutor);
+		ContactosAutor contactosAutor2 = new ContactosAutor();
+		contactosAutor2.setInfoContacto(new ContactosAutor.infoContacto("123123123"));
+		entrada.getContactos().add(contactosAutor2);
+		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		pm.makePersistent(entrada);
+				
+		pm.currentTransaction().begin();
+		try {
+		    pm.makePersistent(entrada);
+		    pm.currentTransaction().commit();
+		} finally {
+		    if (pm.currentTransaction().isActive()) {
+		        pm.currentTransaction().rollback();
+		    }
+		}
 		
 		System.out.println(
 		        "El ID de la nueva entrada es: " + entrada.getId().toString());

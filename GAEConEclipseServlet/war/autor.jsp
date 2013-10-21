@@ -56,7 +56,6 @@ There are no entries.
 		    <div>
 		      <div><%= entrada.getinfoPersonal().nombre %> <%= entrada.getinfoPersonal().apellidos %></div>
 		      <div><%= entrada.getinfoDireccion().poblacion %>, <%= entrada.getinfoDireccion().provincia %></div>
-		      <div><%= entrada.getinfoContacto().numeroTelefono %></div>
 		    </div>
 		    <br>
 		    <%

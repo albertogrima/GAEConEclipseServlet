@@ -1,14 +1,23 @@
 package com.grima;
 
-import javax.jdo.annotations.Embedded;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+
+import javax.jdo.annotations.Element;
 import javax.jdo.annotations.EmbeddedOnly;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.persistence.Embedded;
 
-@PersistenceCapable(identityType=IdentityType.APPLICATION)
+import com.google.appengine.api.datastore.Key;
+
+@PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "true")
 public class Autor {
 	
 	private static final int ENTITIES_PER_PAGE = 3;
@@ -46,19 +55,19 @@ public class Autor {
 		
 	}
 	
-	@PersistenceCapable
-	@EmbeddedOnly
-	public static class infoContacto {
-		public String numeroTelefono;
+	//@PersistenceCapable
+	//@EmbeddedOnly
+	//public static class infoContacto {
+	//	public String numeroTelefono;
 		
-		public infoContacto(String numeroTelefono){
-			this.numeroTelefono = numeroTelefono;
-		}
-	}
+	//	public infoContacto(String numeroTelefono){
+	//		this.numeroTelefono = numeroTelefono;
+	//	}
+	//}
 
 	@PrimaryKey
-	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
-	private Long id;
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    private Key id;
 	
 	@Persistent
 	@Embedded
@@ -68,10 +77,14 @@ public class Autor {
 	@Embedded
 	private infoDireccion infoDireccion;
 	
-	@Persistent
-	@Embedded
-	private infoContacto infoContacto;
-	
+	//@Persistent
+	//@Embedded
+	//private infoContacto infoContacto;
+
+	@Persistent(mappedBy = "autor")
+	@Element(dependent = "true")
+	private List<ContactosAutor> contactosAutor = new ArrayList<ContactosAutor>();
+			
 	public infoPersonal getinfoPersonal() {
 	    return infoPersonal;
 	  }
@@ -89,16 +102,20 @@ public class Autor {
 	    this.infoDireccion = getinfoDireccion;
 	  }
 		  
-	public infoContacto getinfoContacto() {
-	    return infoContacto;
-	  }
+	//public infoContacto getinfoContacto() {
+	//    return infoContacto;
+	//  }
 
-	public void setInfoContacto(infoContacto infoContacto) {
-	    this.infoContacto = infoContacto;
-	  }
+	//public void setInfoContacto(infoContacto infoContacto) {
+	//    this.infoContacto = infoContacto;
+	//  }
 	
-	public Long getId() {
+	public Key getId() {
 	    return id;
 	  }
+	
+	public List<ContactosAutor> getContactos(){
+		return contactosAutor;
+	}
 	
 }
