@@ -43,14 +43,16 @@ public class Autor {
 		public String codigoPostal;
 		public String provincia;
 		public String poblacion;
+		public String dni;
 				
-		public infoDireccion(String tipoCalle, String calle, String numeroCasa, String codigoPostal, String provincia, String poblacion) {
+		public infoDireccion(String tipoCalle, String calle, String numeroCasa, String codigoPostal, String provincia, String poblacion, String dni) {
 			this.tipoCalle = tipoCalle;
 			this.calle = calle;
 			this.numeroCasa = numeroCasa;
 			this.codigoPostal = codigoPostal;
 			this.provincia = provincia;
 			this.poblacion = poblacion;
+			this.dni = dni;
 		}
 		
 	}
@@ -64,11 +66,11 @@ public class Autor {
 	//		this.numeroTelefono = numeroTelefono;
 	//	}
 	//}
-
-	@PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Key id;
 	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key id;
+		
 	@Persistent
 	@Embedded
 	private infoPersonal infoPersonal;
@@ -113,7 +115,7 @@ public class Autor {
 	public Key getId() {
 	    return id;
 	  }
-	
+			
 	public List<ContactosAutor> getContactos(){
 		return contactosAutor;
 	}

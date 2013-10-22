@@ -50,35 +50,39 @@ if (entradas.size() > 3) {
 
 if (entradas.isEmpty()) {%>
 There are no entries.
-<%} else {
-	  for (Autor entrada : entradas) {
-		    %>
-		    <div>
-		      <div><%= entrada.getinfoPersonal().nombre %> <%= entrada.getinfoPersonal().apellidos %></div>
-		      <div><%= entrada.getinfoDireccion().poblacion %> <%= entrada.getinfoDireccion().provincia %></div>
-		      <%if (entrada.getContactos().isEmpty() != true){ %>
-		      Sin numero de telefono.
-		      <%} else {
-		    	  for (int x= 0; x = entrada.getContactos().size(); x=x+1) { %>
-		    	  <div><%= entrada.getContactos().get(x).getinfoContacto().numeroTelefono%></div> 
-		      }
-		    </div>
-		    <br>
-		    <%
-		  }
-	  
-	  if (ultimaEntrada != null) {%>
-	  <!--<a href="/autor.jsp?page=<%= ultimaEntrada.getId().toString() %>&startIndex=0">Next page by key offset</a>-->
-	  <!--<a href="/autor.jsp?page=<%= keyOffset %>&startIndex=<%= indexOffset + 3 %>">Next page by index offset</a>-->
-	  <a href="/autor.jsp?page=<%= ultimaEntrada.getId().toString() %>">Next page by key offset</a>
-	  <a href="/autor.jsp?startIndex=<%= indexOffset + 3 %>">Next page by index offset</a>
+<%} else 
+	{
+	  for (Autor entrada : entradas) 
+	  	{%>
+		<div>
+		<div><%= entrada.getinfoPersonal().nombre %> <%= entrada.getinfoPersonal().apellidos %></div>
+		<div><%= entrada.getinfoDireccion().poblacion %> <%= entrada.getinfoDireccion().provincia %></div>
+		<%if (entrada.getContactos().isEmpty() == false)
+			{
+			for (int x = 0; x < entrada.getContactos().size(); x++) 
+				{
+				%>
+				<div><%= entrada.getContactos().get(x).getinfoContacto().numeroTelefono%></div> 
+			<%	}
+			}else 
+				{
+				System.out.println(entrada.getContactos().isEmpty());%>
+				Sin numero de telefono.
+		</div><br>
+		<%
+				}
+	  	}
+	  	
+	  if (ultimaEntrada != null) 
+	  	{%>
+	  	<!--<a href="/autor.jsp?page=<%= ultimaEntrada.getId().toString() %>&startIndex=0">Next page by key offset</a>-->
+	  	<!--<a href="/autor.jsp?page=<%= keyOffset %>&startIndex=<%= indexOffset + 3 %>">Next page by index offset</a>-->
+	  	<a href="/autor.jsp?page=<%= ultimaEntrada.getId().toString() %>">Next page by key offset</a>
+	  	<a href="/autor.jsp?startIndex=<%= indexOffset + 3 %>">Next page by index offset</a>
 	    <%
-	  } else {
-	    %>
-	    No more pages of entries.
-	    <%
-	  }
-	}%>
+	    }
+	} 
+	%>
 
 <h2>entrada nueva</h2>
 <form action="/autor" method="post">

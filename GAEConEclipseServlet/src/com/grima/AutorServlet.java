@@ -16,8 +16,10 @@ public class AutorServlet extends HttpServlet{
 		    		req.getParameter("tipoCalle"), req.getParameter("calle"), 
 		    		req.getParameter("numeroCasa"), req.getParameter("codigoPostal"), 
 		    		req.getParameter("provincia"), req.getParameter("poblacion"), 
-		    		req.getParameter("numeroTelefono"));
+		    		req.getParameter("numeroTelefono"), req.getParameter("dni"));
 		    resp.sendRedirect("/autor.jsp");
 		    }
+	
+	
 
 }

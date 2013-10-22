@@ -14,11 +14,11 @@ public class AutorUtils {
 	public static String insertarNuevo(String apellidos, String nombre, String tipoCalle, 
 			String calle, String numeroCasa, String codigoPostal,
 			String provincia, String poblacion,
-			String numeroTelefono) {
+			String numeroTelefono, String dni) {
 		Autor entrada = new Autor();
 		entrada.setPersonalInfo(new Autor.infoPersonal(nombre, apellidos));
 		entrada.setInfoDireccion(new Autor.infoDireccion(tipoCalle, calle, numeroCasa,
-				codigoPostal, provincia, poblacion));
+				codigoPostal, provincia, poblacion, dni));
 		
 		ContactosAutor contactosAutor = new ContactosAutor();
 		contactosAutor.setInfoContacto(new ContactosAutor.infoContacto("124123123"));
@@ -45,6 +45,41 @@ public class AutorUtils {
 		return entrada.getId().toString();
 		
 	}
+	
+	
+	public static void modificarTelefono(String dni, String telefonoNuevo) {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		String query = " select from " + Autor.class.getName() + " where dni == " + dni; 
+		System.out.println(query);
+		Autor autor = (Autor)pm.newQuery(query).execute();
+		System.out.println(autor.getinfoPersonal().nombre);
+	}
+		//Autor entrada = new Autor();
+		//ContactosAutor contactosAutor = new ContactosAutor();
+		//contactosAutor.setInfoContacto(new ContactosAutor.infoContacto("124123123"));
+		//entrada.getContactos().add(contactosAutor);
+		//ContactosAutor contactosAutor2 = new ContactosAutor();
+		//contactosAutor2.setInfoContacto(new ContactosAutor.infoContacto("123123123"));
+		//entrada.getContactos().add(contactosAutor2);
+		
+		
+				
+		//pm.currentTransaction().begin();
+		//try {
+		//    pm.makePersistent(entrada);
+		//    pm.currentTransaction().commit();
+		//} finally {
+		//    if (pm.currentTransaction().isActive()) {
+		//        pm.currentTransaction().rollback();
+		//    }
+		//}
+		
+		//System.out.println(
+		//        "El ID de la nueva entrada es: " + entrada.getId().toString());
+		
+		//return entrada.getId().toString();
+		
+	//}
 	
 	
 	//Para sacar la pagina en la que se esta y/o realizar busqueda

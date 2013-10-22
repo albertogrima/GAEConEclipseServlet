@@ -78,7 +78,7 @@ There are no entries.
 <form action="/autor" method="post">
   <p>First name: <input name="nombre"> Last name: <input name="apellidos"></p>
   <p>City: <input name="poblacion"> State: <input name="estado"></p>
-  <p>Phone number: <input name="numeroTelefono"></p>
+  <p>Phone number: <input name="numeroTelefono"> Dni: <input name="dni"></p>
   <p><input type="submit" value="Submit"></p>
 </form>
 <br>	  
