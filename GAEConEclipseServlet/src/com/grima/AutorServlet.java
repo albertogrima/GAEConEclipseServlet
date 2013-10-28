@@ -42,19 +42,20 @@ public class AutorServlet extends HttpServlet{
 				
 			if(request.getParameter("action").equals("modificarAutor"))
 				{
-				String dni = request.getParameter("autorNuevo");
+				
 				String nombre = request.getParameter("autorNuevo");
 				String apellidos = request.getParameter("tutorialNuevo");
-				String tipoCalle request.getParameter("autorNuevo");
-				String calle request.getParameter("autorNuevo");
-				String numeroCasa request.getParameter("autorNuevo");
-				String provincia request.getParameter("autorNuevo");
-				String poblacion request.getParameter("autorNuevo");
-				String numeroTelefono request.getParameter("autorNuevo");
+				String tipoCalle = request.getParameter("tipoCalle");
+				String calle = request.getParameter("calle");
+				String numeroCasa = request.getParameter("numeroCasa");
+				String provincia = request.getParameter("provincia");
+				String poblacion = request.getParameter("poblacion");
+				String numeroTelefono = request.getParameter("numeroTelefono");
+				String dni = request.getParameter("dni");
 				
-				Long id = Long.parseLong(request.getParameter("id"));
-				TutorialesUtil.modificarTitulo(id, autorNuevo, tutorialNuevo, fechaNuevo);
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");	
+				AutorUtils.modificarTelefono(dni, numeroTelefono);
+				
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/modificarAutor.jsp");	
 				rd.forward(request, response);
 				
 				}

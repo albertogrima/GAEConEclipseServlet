@@ -1,3 +1,5 @@
+<%//Pagina capar de sacar los varios telefonos que puede tener un autor %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.grima.Autor" %>
 <%@ page import="com.grima.AutorUtils" %>

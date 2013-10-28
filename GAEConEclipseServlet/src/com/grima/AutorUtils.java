@@ -81,7 +81,24 @@ public class AutorUtils {
 		
 	//}
 	
-	
+	//Psara sacar datos Autor por dni
+	@SuppressWarnings("unchecked")
+	public static List<Autor> busquedaDni (String dni){
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Query query = pm.newQuery(Autor.class);
+		query.declareParameters("String dni");
+		StringBuilder filter = new StringBuilder();
+		filter.append("infoDireccion.dni == dni");
+		System.out.println("El filtro es: " + filter.toString());
+		
+		//Si el filtro tiene algo se convierta a string y se setea para ejecutarlo
+		if (filter.length() > 0) 
+    		{
+			query.setFilter(filter.toString());
+    		}
+		 return (List<Autor>) query.execute(dni);
+		
+	}
 	//Para sacar la pagina en la que se esta y/o realizar busqueda
 	@SuppressWarnings("unchecked")
 	public static List<Autor> getPage(Long keyOffset, int indexOffset, String apellidos, String poblacion) {
