@@ -15,6 +15,7 @@
         <a href="/tutorialModificar.jsp">modificar Tutorial</a><br>
         <a href="/unoVarios.jsp">unoVarios</a><br>
         <a href="/sacarDatosUnoVarios.jsp">sacar datos unoVarios</a><br>
+        <a href="/modificarAutor.jsp">Modificar autor</a><br>
         
         
     </body>

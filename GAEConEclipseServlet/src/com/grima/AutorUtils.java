@@ -21,11 +21,11 @@ public class AutorUtils {
 				codigoPostal, provincia, poblacion, dni));
 		
 		ContactosAutor contactosAutor = new ContactosAutor();
-		contactosAutor.setInfoContacto(new ContactosAutor.infoContacto("124123123"));
+		contactosAutor.setInfoContacto(new ContactosAutor.infoContacto(numeroTelefono));
 		entrada.getContactos().add(contactosAutor);
-		ContactosAutor contactosAutor2 = new ContactosAutor();
-		contactosAutor2.setInfoContacto(new ContactosAutor.infoContacto("123123123"));
-		entrada.getContactos().add(contactosAutor2);
+		//ContactosAutor contactosAutor2 = new ContactosAutor();
+		//contactosAutor2.setInfoContacto(new ContactosAutor.infoContacto("123123123"));
+		//entrada.getContactos().add(contactosAutor2);
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 				
@@ -46,14 +46,28 @@ public class AutorUtils {
 		
 	}
 	
-	
-	public static void modificarTelefono(String dni, String telefonoNuevo) {
+	@SuppressWarnings("unchecked")
+	public static String modificarTelefono(Autor autor, String telefonoNuevo) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		String query = " select from " + Autor.class.getName() + " where dni == " + dni; 
-		System.out.println(query);
-		Autor autor = (Autor)pm.newQuery(query).execute();
-		System.out.println(autor.getinfoPersonal().nombre);
+		ContactosAutor contactosAutor = new ContactosAutor();
+		contactosAutor.setInfoContacto(new ContactosAutor.infoContacto(telefonoNuevo));
+		autor.getContactos().add(contactosAutor);
+		
+		return "Teléfono insertado";
+		
+		//pm.currentTransaction().begin();
+		//try{
+		//	pm.makePersistent(autor);
+		//	pm.currentTransaction().commit();
+		//	}finally{
+		//			if(pm.currentTransaction().isActive())
+		//				{
+		//				pm.currentTransaction().rollback();
+		//				}
+		//			}
 	}
+			
+	
 		//Autor entrada = new Autor();
 		//ContactosAutor contactosAutor = new ContactosAutor();
 		//contactosAutor.setInfoContacto(new ContactosAutor.infoContacto("124123123"));
@@ -90,6 +104,7 @@ public class AutorUtils {
 		StringBuilder filter = new StringBuilder();
 		filter.append("infoDireccion.dni == dni");
 		System.out.println("El filtro es: " + filter.toString());
+		System.out.println(query);
 		
 		//Si el filtro tiene algo se convierta a string y se setea para ejecutarlo
 		if (filter.length() > 0) 

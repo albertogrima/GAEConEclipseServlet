@@ -79,6 +79,7 @@ There are no entries.
   <p>First name: <input name="nombre"> Last name: <input name="apellidos"></p>
   <p>City: <input name="poblacion"> State: <input name="estado"></p>
   <p>Phone number: <input name="numeroTelefono"> Dni: <input name="dni"></p>
+  <input type="hidden" name="action" value="anadirAutor">
   <p><input type="submit" value="Submit"></p>
 </form>
 <br>	  
