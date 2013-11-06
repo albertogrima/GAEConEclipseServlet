@@ -22,6 +22,23 @@ public class Autor {
 	
 	private static final int ENTITIES_PER_PAGE = 3;
 	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key id;
+		
+	@Persistent
+	@Embedded
+	private infoPersonal infoPersonal;
+	
+	@Persistent
+	@Embedded
+	private infoDireccion infoDireccion;
+		
+	@Persistent(mappedBy = "autor")
+	@Element(dependent = "true")
+	private List<ContactosAutor> contactosAutor = new ArrayList<ContactosAutor>();
+	//private List<ContactosAutor> contactosAutor;
+	
 	@PersistenceCapable
 	@EmbeddedOnly
 	public static class infoPersonal {
@@ -34,6 +51,8 @@ public class Autor {
 	    }
 	  }
 	
+	
+	//Constructor clase
 	@PersistenceCapable
 	@EmbeddedOnly
 	public static class infoDireccion {
@@ -57,36 +76,8 @@ public class Autor {
 		
 	}
 	
-	//@PersistenceCapable
-	//@EmbeddedOnly
-	//public static class infoContacto {
-	//	public String numeroTelefono;
-		
-	//	public infoContacto(String numeroTelefono){
-	//		this.numeroTelefono = numeroTelefono;
-	//	}
-	//}
+	//Getters y settes
 	
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key id;
-		
-	@Persistent
-	@Embedded
-	private infoPersonal infoPersonal;
-	
-	@Persistent
-	@Embedded
-	private infoDireccion infoDireccion;
-	
-	//@Persistent
-	//@Embedded
-	//private infoContacto infoContacto;
-
-	@Persistent(mappedBy = "autor")
-	@Element(dependent = "true")
-	private List<ContactosAutor> contactosAutor = new ArrayList<ContactosAutor>();
-			
 	public infoPersonal getinfoPersonal() {
 	    return infoPersonal;
 	  }

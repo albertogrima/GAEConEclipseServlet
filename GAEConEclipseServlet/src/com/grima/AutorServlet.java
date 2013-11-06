@@ -43,14 +43,6 @@ public class AutorServlet extends HttpServlet{
 			if(request.getParameter("action").equals("buscarAutorDni"))
 				{
 				
-				//String nombre = request.getParameter("autorNuevo");
-				//String apellidos = request.getParameter("tutorialNuevo");
-				//String tipoCalle = request.getParameter("tipoCalle");
-				//String calle = request.getParameter("calle");
-				//String numeroCasa = request.getParameter("numeroCasa");
-				//String provincia = request.getParameter("provincia");
-				//String poblacion = request.getParameter("poblacion");
-				//String numeroTelefono = request.getParameter("numeroTelefono");
 				String dni = request.getParameter("dni");
 				List<Autor> autores = AutorUtils.busquedaDni(dni);
 				if (autores != null)
@@ -82,6 +74,26 @@ public class AutorServlet extends HttpServlet{
 						request.setAttribute("dni", dni);
 						request.setAttribute("autoresDNI", autores);
 						}
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/modificarAutor.jsp");	
+					rd.forward(request, response);
+					}
+			else if(request.getParameter("action").equals("borrarTelefono"))
+					{
+					String dni = request.getParameter("dni");
+					String telefonoBorrar = request.getParameter("telefonoBorrar");
+					AutorUtils.borrarTelefono(dni, telefonoBorrar);
+					request.setAttribute("dni", dni);
+							
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/modificarAutor.jsp");	
+					rd.forward(request, response);
+					}
+			else if(request.getParameter("action").equals("pruebas"))
+					{
+					String dni = request.getParameter("dni");
+					String telefonoBorrar = request.getParameter("telefonoBorrar");
+					AutorUtils.pruebas(dni, telefonoBorrar);
+					request.setAttribute("dni", dni);
+					
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/modificarAutor.jsp");	
 					rd.forward(request, response);
 					}

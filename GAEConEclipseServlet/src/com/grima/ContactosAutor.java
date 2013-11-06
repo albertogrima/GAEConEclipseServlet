@@ -1,8 +1,4 @@
 package com.grima;
-
-
-
-
 import javax.jdo.annotations.EmbeddedOnly;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -23,19 +19,10 @@ public class ContactosAutor {
 	
 	@Persistent
 	private Autor autor;
-	
-	@PersistenceCapable
-	public static class infoContacto {
-		public String numeroTelefono;
-		
-		public infoContacto(String numeroTelefono){
-			this.numeroTelefono = numeroTelefono;
-		}
-	}
-	
 	@Persistent
 	private infoContacto infoContacto;
-	
+		
+	//Getters y setters
 	public infoContacto getinfoContacto() {
 	    return infoContacto;
 	  }
@@ -47,4 +34,24 @@ public class ContactosAutor {
 	public Key getId() {
 	    return id;
 	  }
+	
+	//Clase infoContacto
+	@PersistenceCapable
+	public static class infoContacto {
+		public String numeroTelefono;
+		
+		@PrimaryKey
+		@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
+		public Key id;
+		
+		public infoContacto(String numeroTelefono){
+			super();
+			this.numeroTelefono = numeroTelefono;
+		}
+		
+		public Key getId(){
+			return id;
+		}
+	}
+	
 }

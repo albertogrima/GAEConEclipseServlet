@@ -5,6 +5,9 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import com.google.appengine.api.datastore.Key;
+
+
 
 
 public class AutorUtils {
@@ -18,26 +21,23 @@ public class AutorUtils {
 		Autor entrada = new Autor();
 		entrada.setPersonalInfo(new Autor.infoPersonal(nombre, apellidos));
 		entrada.setInfoDireccion(new Autor.infoDireccion(tipoCalle, calle, numeroCasa,
-				codigoPostal, provincia, poblacion, dni));
-		
+			codigoPostal, provincia, poblacion, dni));
 		ContactosAutor contactosAutor = new ContactosAutor();
 		contactosAutor.setInfoContacto(new ContactosAutor.infoContacto(numeroTelefono));
 		entrada.getContactos().add(contactosAutor);
-		//ContactosAutor contactosAutor2 = new ContactosAutor();
-		//contactosAutor2.setInfoContacto(new ContactosAutor.infoContacto("123123123"));
-		//entrada.getContactos().add(contactosAutor2);
-		
-		PersistenceManager pm = PMF.get().getPersistenceManager();
 				
+		PersistenceManager pm = PMF.get().getPersistenceManager();
 		pm.currentTransaction().begin();
 		try {
 		    pm.makePersistent(entrada);
 		    pm.currentTransaction().commit();
-		} finally {
-		    if (pm.currentTransaction().isActive()) {
-		        pm.currentTransaction().rollback();
-		    }
-		}
+			} finally 
+				{
+				if (pm.currentTransaction().isActive()) 
+		    		{
+					pm.currentTransaction().rollback();
+		    		}
+				}
 		
 		System.out.println(
 		        "El ID de la nueva entrada es: " + entrada.getId().toString());
@@ -47,14 +47,11 @@ public class AutorUtils {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static String modificarTelefono(Autor autor, String telefonoNuevo) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
+	public static void modificarTelefono(Autor autor, String telefonoNuevo) {
 		ContactosAutor contactosAutor = new ContactosAutor();
 		contactosAutor.setInfoContacto(new ContactosAutor.infoContacto(telefonoNuevo));
 		autor.getContactos().add(contactosAutor);
-		
-		return "Teléfono insertado";
-		
+						
 		//pm.currentTransaction().begin();
 		//try{
 		//	pm.makePersistent(autor);
@@ -66,36 +63,8 @@ public class AutorUtils {
 		//				}
 		//			}
 	}
-			
 	
-		//Autor entrada = new Autor();
-		//ContactosAutor contactosAutor = new ContactosAutor();
-		//contactosAutor.setInfoContacto(new ContactosAutor.infoContacto("124123123"));
-		//entrada.getContactos().add(contactosAutor);
-		//ContactosAutor contactosAutor2 = new ContactosAutor();
-		//contactosAutor2.setInfoContacto(new ContactosAutor.infoContacto("123123123"));
-		//entrada.getContactos().add(contactosAutor2);
-		
-		
-				
-		//pm.currentTransaction().begin();
-		//try {
-		//    pm.makePersistent(entrada);
-		//    pm.currentTransaction().commit();
-		//} finally {
-		//    if (pm.currentTransaction().isActive()) {
-		//        pm.currentTransaction().rollback();
-		//    }
-		//}
-		
-		//System.out.println(
-		//        "El ID de la nueva entrada es: " + entrada.getId().toString());
-		
-		//return entrada.getId().toString();
-		
-	//}
-	
-	//Psara sacar datos Autor por dni
+	//Para sacar datos Autor por dni
 	@SuppressWarnings("unchecked")
 	public static List<Autor> busquedaDni (String dni){
 		PersistenceManager pm = PMF.get().getPersistenceManager();
@@ -111,9 +80,96 @@ public class AutorUtils {
     		{
 			query.setFilter(filter.toString());
     		}
-		 return (List<Autor>) query.execute(dni);
+		
+		List<Autor> autor = (List<Autor>) query.execute(dni);
+		//pm.close();
+		return autor;
 		
 	}
+	
+	//Pruebas
+	public static void pruebas(String dni, String telefonoBorrar){
+		List<Autor> autor = busquedaDni(dni);
+		String telefonoComprobar;
+		for (int x = 0; x < autor.get(0).getContactos().size(); x++)
+			{
+			telefonoComprobar = autor.get(0).getContactos().get(x).getinfoContacto().numeroTelefono;
+			
+			if (telefonoComprobar.equals(telefonoBorrar))
+				{
+				Key idContacto = autor.get(0).getContactos().get(x).getId();
+				Key idContactoTelefono = autor.get(0).getContactos().get(x).getinfoContacto().getId();
+				PersistenceManager pm = PMF.get().getPersistenceManager();
+				
+				pm.currentTransaction().begin();
+				try{
+					//Se saca el id del telefono a borrar
+					ContactosAutor.infoContacto contactoBorrarTelefono = (ContactosAutor.infoContacto) pm.getObjectById(ContactosAutor.infoContacto.class,idContactoTelefono);
+					//Key prueba = pm.getObjectId(ContactosAutor.infoContacto);
+					System.out.println(pm.getObjectId(autor.get(0)));
+					//Se saca el id del contacto a borrar
+					ContactosAutor contactoBorrar = (ContactosAutor) pm.getObjectById(ContactosAutor.class,idContacto);
+					
+					pm.currentTransaction().commit();
+					}finally{
+							if(pm.currentTransaction().isActive())
+								{
+								pm.currentTransaction().rollback();
+								}
+							}
+				}
+			}
+		
+		Key id = autor.get(0).getId();
+						
+		
+		
+		
+		
+	}
+	
+	//Para borrar telefonos
+	@SuppressWarnings("unchecked")
+	public static void borrarTelefono(String dni, String telefonoBorrar){
+		List<Autor> autor = busquedaDni(dni);
+		String telefonoComprobar;
+		for (int x = 0; x < autor.get(0).getContactos().size(); x++)
+			{
+			telefonoComprobar = autor.get(0).getContactos().get(x).getinfoContacto().numeroTelefono;
+			
+			if (telefonoComprobar.equals(telefonoBorrar))
+				{
+				Key idContacto = autor.get(0).getContactos().get(x).getId();
+				Key idContactoTelefono = autor.get(0).getContactos().get(x).getinfoContacto().getId();
+				PersistenceManager pm = PMF.get().getPersistenceManager();
+				
+				pm.currentTransaction().begin();
+				try{
+					//Se saca el id del telefono a borrar
+					ContactosAutor.infoContacto contactoBorrarTelefono = (ContactosAutor.infoContacto) pm.getObjectById(ContactosAutor.infoContacto.class,idContactoTelefono);
+					pm.deletePersistent(contactoBorrarTelefono);
+					
+					//Se saca el id del contacto a borrar
+					ContactosAutor contactoBorrar = (ContactosAutor) pm.getObjectById(ContactosAutor.class,idContacto);
+					pm.deletePersistent(contactoBorrar);
+					pm.currentTransaction().commit();
+					}finally{
+							if(pm.currentTransaction().isActive())
+								{
+								pm.currentTransaction().rollback();
+								}
+							}
+				}
+			}
+		
+		Key id = autor.get(0).getId();
+						
+		
+		
+		
+		
+	}
+	
 	//Para sacar la pagina en la que se esta y/o realizar busqueda
 	@SuppressWarnings("unchecked")
 	public static List<Autor> getPage(Long keyOffset, int indexOffset, String apellidos, String poblacion) {
@@ -123,8 +179,7 @@ public class AutorUtils {
 	    query.declareParameters(
 	    		"Long keyOffset, String ultimoNombreSelecionado, String estadoSelecionado");
 	    StringBuilder filter = new StringBuilder();
-	    String combine = "";
-	    
+	    	    
 	    if (keyOffset != null && !keyOffset.equals("")) 
 	    	{
 	    	if (filter.length() != 0) 

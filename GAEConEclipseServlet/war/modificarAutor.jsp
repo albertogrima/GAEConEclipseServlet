@@ -30,7 +30,7 @@ List<Autor> autores = (List)request.getAttribute("autoresDNI");
 <%
 if(autores != null && autores.size() > 0)
 	{
-	System.out.println(autores.get(0).getinfoDireccion().poblacion);
+	//System.out.println(autores.get(0).getinfoDireccion().poblacion);
 	%>
 <table border="1">
 	<thead>
@@ -68,7 +68,19 @@ if(autores != null && autores.size() > 0)
 	Teléfono: <input name="telefono" value="<%=telefono %>"> <br>
 	<input type="hidden" name="action" value="modificarAutor">
 	<input type="submit" value="Modificar Autor">
-  </p>
+	</p>
+</form>
+<form action="/autor" method="get">
+	DNI: <input name="dni" value="<%= dni %>"> <br>
+	Teléfono a borrar: <input name="telefonoBorrar" value="<%=telefono %>"> <br>
+	<input type="hidden" name="action" value="borrarTelefono">
+	<input type="submit" value="Borrar Telefono">
+</form>
+<form action="/autor" method="get">
+	DNI: <input name="dni" value="<%= dni %>"> <br>
+	Teléfono a borrar: <input name="telefonoBorrar" value="<%=telefono %>"> <br>
+	<input type="hidden" name="action" value="pruebas">
+	<input type="submit" value="pruebas">
 </form>
 <%	} %>
 
