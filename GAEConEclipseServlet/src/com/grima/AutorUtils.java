@@ -14,6 +14,25 @@ public class AutorUtils {
 
 	private static final int ENTITIES_PER_PAGE = 3;
 	
+	public static void modificarAutor(Autor autor, String telefono, String nombre, String apellidos, String poblacion, String calle,
+			String codigoPostal, String numeroCasa, String provincia, String tipoCalle)
+		{
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		pm.currentTransaction().begin();
+		try {
+			autor.setInfoDireccion(new Autor.infoDireccion(tipoCalle, calle, numeroCasa, codigoPostal, provincia, poblacion, autor.getinfoDireccion().dni));
+			autor.setPersonalInfo(new Autor.infoPersonal(nombre, apellidos));
+		    pm.currentTransaction().commit();
+			} finally 
+				{
+				if (pm.currentTransaction().isActive()) 
+		    		{
+					pm.currentTransaction().rollback();
+		    		}
+				}
+		
+		}
+	
 	public static String insertarNuevo(String apellidos, String nombre, String tipoCalle, 
 			String calle, String numeroCasa, String codigoPostal,
 			String provincia, String poblacion,
@@ -45,8 +64,7 @@ public class AutorUtils {
 		return entrada.getId().toString();
 		
 	}
-	
-	@SuppressWarnings("unchecked")
+		
 	public static void modificarTelefono(Autor autor, String telefonoNuevo) {
 		ContactosAutor contactosAutor = new ContactosAutor();
 		contactosAutor.setInfoContacto(new ContactosAutor.infoContacto(telefonoNuevo));
@@ -129,7 +147,6 @@ public class AutorUtils {
 	}
 	
 	//Para borrar telefonos
-	@SuppressWarnings("unchecked")
 	public static void borrarTelefono(String dni, String telefonoBorrar){
 		List<Autor> autor = busquedaDni(dni);
 		String telefonoComprobar;
@@ -161,12 +178,6 @@ public class AutorUtils {
 							}
 				}
 			}
-		
-		Key id = autor.get(0).getId();
-						
-		
-		
-		
 		
 	}
 	

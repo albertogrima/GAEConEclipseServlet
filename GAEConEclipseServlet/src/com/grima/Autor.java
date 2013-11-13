@@ -74,6 +74,15 @@ public class Autor {
 			this.dni = dni;
 		}
 		
+		public infoDireccion(String tipoCalle, String calle, String numeroCasa, String codigoPostal, String provincia, String poblacion) {
+			this.tipoCalle = tipoCalle;
+			this.calle = calle;
+			this.numeroCasa = numeroCasa;
+			this.codigoPostal = codigoPostal;
+			this.provincia = provincia;
+			this.poblacion = poblacion;
+		}
+		
 	}
 	
 	//Getters y settes

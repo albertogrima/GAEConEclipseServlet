@@ -67,9 +67,19 @@ public class AutorServlet extends HttpServlet{
 					{
 					String dni = request.getParameter("dni");
 					String telefonoNuevo = request.getParameter("telefono");
+					String nombreNuevo = request.getParameter("nombre");
+					String apellidoNuevo = request.getParameter("apellidos");
+					String poblacionNuevo = request.getParameter("poblacion");
+					String calleNuevo = request.getParameter("calle");
+					String codigoPostalNuevo = request.getParameter("codigoPostal");
+					String numeroCasaNuevo = request.getParameter("numeroCasa");
+					String provinciaNuevo = request.getParameter("provincia");
+					String tipoCalleNuevo = request.getParameter("tipoCalle");
 					List<Autor> autores = AutorUtils.busquedaDni(dni);
 					if (autores != null)
 						{
+						AutorUtils.modificarAutor(autores.get(0), telefonoNuevo, nombreNuevo, apellidoNuevo, poblacionNuevo,
+								calleNuevo, codigoPostalNuevo, numeroCasaNuevo, provinciaNuevo, tipoCalleNuevo);
 						AutorUtils.modificarTelefono(autores.get(0),telefonoNuevo);
 						request.setAttribute("dni", dni);
 						request.setAttribute("autoresDNI", autores);
@@ -81,9 +91,10 @@ public class AutorServlet extends HttpServlet{
 					{
 					String dni = request.getParameter("dni");
 					String telefonoBorrar = request.getParameter("telefonoBorrar");
+					List<Autor> autores = AutorUtils.busquedaDni(dni);
 					AutorUtils.borrarTelefono(dni, telefonoBorrar);
 					request.setAttribute("dni", dni);
-							
+					request.setAttribute("autoresDNI", autores);
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/modificarAutor.jsp");	
 					rd.forward(request, response);
 					}
